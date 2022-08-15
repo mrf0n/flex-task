@@ -1,0 +1,43 @@
+{
+  "db_books": [
+    {
+      "id": 2,
+      "name": "Как пропить жизнь",
+      "author": "Леванов виталий",
+      "size": "112",
+      "description": "https://www.litres.ru/",
+      "tags": [
+        "ads",
+        "asdf"
+      ],
+      "picture": "",
+      "coverURL": "/uploads/cover.jpg-1660576960655.webp"
+    },
+    {
+      "name": "Основы мат анализа",
+      "author": "И. В. Зорин",
+      "size": "25",
+      "description": "http://localhost:4200/add-book",
+      "tags": [
+        "бред"
+      ],
+      "coverURL": "images/book-cover.jpg",
+      "id": 5
+    }
+  ],
+  "db_speakers": [
+    {
+      "name": "box",
+      "surname": "hot",
+      "famility": "Ivan",
+      "id": 3,
+      "patronymic": "Ivan"
+    },
+    {
+      "name": "Иван",
+      "surname": "Быков",
+      "famility": "Владимирович",
+      "id": 4
+    }
+  ]
+}
