@@ -1,27 +1,27 @@
-name: Node.js CI
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
-
+  gh-pages-deploy:
+    name: Deploying to GitHub Pages
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-    - run: sh ./scripts/deploy-to-gh-pages.sh
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v2-beta
+        with:
+          version: 10.24.1
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Clean install dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npx ember build --environment=ci
+
+      - name: Run deploy script
+        run: sh ./scripts/deploy-to-gh-pages.sh
