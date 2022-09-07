@@ -10,9 +10,10 @@ export default Component.extend({
     },
 
     actions: {
-
-        async delete_book(book) {
-            await this.get('dataService').delete_book(book);
+        async deletebook(book) {
+            // await this.get('dataService').delete_book(book);
+            await book.destroyRecord();
+            this.get('store').unloadRecord(book);
             // this.transitionToRoute('books');
         },
     }

@@ -23,6 +23,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+
 const getErrors = (errorsToSend) => {
   let errors = [];
   if (errorsToSend && Array.isArray(errorsToSend)) {
@@ -49,7 +50,30 @@ const getError = (title, detail, status, pathToAttribute) => {
 const server = jsonServer.create()
 const router = jsonServer.router('./tests/test-data/db.json')
 const middlewares = jsonServer.defaults()
+function responseInterceptor(req, res, next) {
+  var originalSend = res.send;
 
+  res.send = function () {
+    let body = arguments[0];
+
+    if (req.method === 'DELETE') {
+      let urlSegms = req.url.split('/');
+      let idStr = urlSegms[urlSegms.length - 1];
+      let id = parseInt(idStr);
+      id = isNaN(id) ? idStr : id;
+
+      let newBody = Object.assign({}, JSON.parse(body));
+      newBody.id = id;
+      arguments[0] = JSON.stringify(newBody);
+    }
+
+    originalSend.apply(res, arguments);
+  };
+
+  next();
+}
+
+server.use(responseInterceptor);
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares)
 

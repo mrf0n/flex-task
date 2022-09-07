@@ -15,21 +15,28 @@ export default Controller.extend({
         changeUploadData(uploadData) {
             set(this, 'uploadData', uploadData);
         },
-         async edit_book(id_book) {
+        async edit_book() {
+            let bookModel = this.get('model');
+
             const uploadData = get(this, 'uploadData');
-            await this.get("dataService").edit_book({
-                id: parseInt(id_book),
-                name: this.get('name'),
-                author: this.get('author'),
-                size: this.get('size'),
-                description: this.get('desc'),
-                tags: this.get('tags'),
-            }, uploadData);
-            this.set('name'); 
-            this.set('author'); 
-            this.set('size'); 
-            this.set('desc');
-            this.transitionToRoute('books');
+            if(uploadData) {
+                uploadData.url = `${ENV.backendURL}/FileUpload`;
+                uploadData.submit().done(async (result) => {
+                    await bookModel.set('coverURL', `/uploads/${result.filename}`);
+                });
+                await bookModel.save();
+            }
+
+            if(this.get('name')) bookModel.set('name', this.get('name'));
+            if(this.get('author')) bookModel.set('author', this.get('author'));
+            if(this.get('size')) bookModel.set('size', this.get('size'));
+            if(this.get('description')) bookModel.set('description', this.get('description'));
+            if(this.get('tags')) bookModel.set('tags', this.get('tags'));
+
+            await bookModel.save();
+
+            this.set('name'); this.set('author'); this.set('size'); this.set('description');
+            this.transitionToRoute('book');
         },
         reset() {
             set(this, 'uploadData', null);

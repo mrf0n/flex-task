@@ -1,10 +1,10 @@
 {
-  "db_books": [
+  "books": [
     {
       "id": 2,
       "name": "Как пропить жизнь",
       "author": "Леванов виталий",
-      "size": "112",
+      "size": "123",
       "description": "https://www.litres.ru/",
       "tags": [
         "ads",
@@ -25,19 +25,43 @@
       "id": 5
     }
   ],
-  "db_speakers": [
-    {
-      "name": "box",
-      "surname": "hot",
-      "famility": "Ivan",
-      "id": 3,
-      "patronymic": "Ivan"
-    },
+  "speakers": [
     {
       "name": "Иван",
       "surname": "Быков",
       "famility": "Владимирович",
       "id": 4
+    },
+    {
+      "name": "ad",
+      "surname": "ad",
+      "famility": "ad",
+      "id": 5
+    },
+    {
+      "name": "da",
+      "surname": "ad",
+      "famility": "es1",
+      "id": 6
+    }
+  ],
+  "reports": [
+    {
+      "id": 1,
+      "date": "2022-08-19T19:00:00.000Z",
+      "rate": "60",
+      "presentationURL": "https://...",
+      "clipURL": "https://...",
+      "overview": "лучшая книга",
+      "bookId": 2,
+      "speakerId": 4,
+      "meetingId": 1
+    }
+  ],
+  "meetings": [
+    {
+      "id": 1,
+      "Date": "2022-08-24T19:00:00.000Z"
     }
   ]
 }
