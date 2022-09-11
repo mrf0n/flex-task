@@ -37,31 +37,40 @@
       "surname": "ad",
       "famility": "ad",
       "id": 5
-    },
-    {
-      "name": "da",
-      "surname": "ad",
-      "famility": "es1",
-      "id": 6
     }
   ],
   "reports": [
     {
-      "id": 1,
-      "date": "2022-08-19T19:00:00.000Z",
-      "rate": "60",
-      "presentationURL": "https://...",
-      "clipURL": "https://...",
-      "overview": "лучшая книга",
-      "bookId": 2,
+      "date": null,
+      "rate": "5",
+      "clipURL": "1",
+      "presentationURL": "10",
+      "overview": "ыыы",
+      "bookId": 5,
+      "speakerId": 5,
+      "meetingId": 1,
+      "id": 1
+    },
+    {
+      "date": null,
+      "rate": "222",
+      "clipURL": "1",
+      "presentationURL": "1",
+      "overview": "ы",
+      "bookId": 5,
       "speakerId": 4,
-      "meetingId": 1
+      "meetingId": 2,
+      "id": 2
     }
   ],
   "meetings": [
     {
-      "id": 1,
-      "Date": "2022-08-24T19:00:00.000Z"
+      "Date": "2022-05-01T19:00:00.000Z",
+      "id": 1
+    },
+    {
+      "Date": "1998-12-31T19:00:00.000Z",
+      "id": 2
     }
   ]
 }

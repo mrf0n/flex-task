@@ -6,17 +6,24 @@ export default Controller.extend({
     actions: {
         async editreport() {
             let reportModel = this.get('model');
-            const id=reportModel.meeting.get('id');
-             this.get('rating') ? reportModel.set('rate', this.get('rating')): null;
-             
-             await reportModel.save();
+            this.get('rate') ? reportModel.set('rate', this.get('rate')) : undefined;
+            this.get('newpresURL') ? reportModel.set('presentationURL', this.get('newpresURL')) : undefined;
+            this.get('clipURL') ? reportModel.set('videoURL', this.get('newclipURL')) : undefined;
+            this.get('newoverview') ? reportModel.set('overview', this.get('newoverview')) : undefined;
+            this.get('newBook') ? reportModel.set('book', this.get('newBook')) : undefined;
+            this.get('newSpeaker') ? reportModel.set('speaker', this.get('newSpeaker')) : undefined;
 
+            await reportModel.save();
 
-             this.set('rating');
-             this.transitionToRoute('edit-meeting', id);
+            this.set('rate');
+            this.set('rate'); this.set('newBook'); this.set('newSpeaker'); this.set('newpresURL'); this.set('newclipURL'); this.set('newoverview');
+            this.transitionToRoute('edit-meeting', reportModel.meeting.get('id'));
          },
          getBooks() {
              return this.get('store').findAll('book');
-         }
+         },
+         getSpeakers() {
+            return this.get('store').findAll('speaker');
+        }
      }
 });
