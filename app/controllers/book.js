@@ -3,6 +3,7 @@ import Controller from '@ember/controller';
 
  export default Controller.extend({
      dataService: service('data'),
+     store: service('store'),
      queryParams: ["search", "tagslike"],
      search: '',
      tagslike: '',
@@ -12,6 +13,10 @@ import Controller from '@ember/controller';
      actions: {
         refreshlist() {
             this.send("refreshBooks");
+        },
+        async deleteBook(book) {
+            await book.destroyRecord();
+            this.store.unloadRecord(book);
         },
     }
  });

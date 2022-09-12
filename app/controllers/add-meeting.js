@@ -21,21 +21,28 @@ export default Controller.extend({
                 this.set('datameet');
                 this.transitionToRoute('meeting');
             }
-            else alert('не указана дата!')
+            else alert('Поле даты не заполнено!')
         },
         async deleteMeeting(meeting) {
-            let temp = meeting;
-            await meeting.destroyRecord();
-            temp.reports.forEach(report => {
-                report.destroyRecord();
-                this.get('store').unloadRecord(report);
+            let cureentmeet = meeting; 
+            let reportcache = promisesarr = [];
+            let meetarr = cureentmeet.get('reports').toArray();;
+            meetarr.forEach(report => {
+                reportcache.push(report);
+                promisesarr.push(report.destroyRecord());
             });
-            this.get('store').unloadRecord(meeting);
+            await RSVP.all(promisesarr);
+
+            reportcache.forEach(report => {
+                this.store.unloadRecord(report);
+            })
+            await meeting.destroyRecord();
+            this.store.unloadRecord(meeting);
             this.transitionToRoute('meeting');
         },
         async deleteReport(report) {
             await report.destroyRecord();
-            this.get('store').unloadRecord(report);
+            this.store.unloadRecord(report);
         }
     }
 });

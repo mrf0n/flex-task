@@ -8,7 +8,8 @@
       "description": "https://www.litres.ru/",
       "tags": [
         "ads",
-        "asdf"
+        "asdf",
+        "ghj"
       ],
       "picture": "",
       "coverURL": "/uploads/cover.jpg-1660576960655.webp"
@@ -41,7 +42,7 @@
   ],
   "reports": [
     {
-      "date": null,
+      "date": "2022-05-01T19:00:00.000Z",
       "rate": "5",
       "clipURL": "1",
       "presentationURL": "10",
@@ -52,14 +53,14 @@
       "id": 1
     },
     {
-      "date": null,
-      "rate": "222",
-      "clipURL": "1",
-      "presentationURL": "1",
-      "overview": "ы",
-      "bookId": 5,
-      "speakerId": 4,
-      "meetingId": 2,
+      "date": "2022-11-10T19:00:00.000Z",
+      "rate": "65",
+      "clipURL": "6",
+      "presentationURL": "5",
+      "overview": "a",
+      "bookId": 2,
+      "speakerId": 5,
+      "meetingId": 3,
       "id": 2
     }
   ],
@@ -69,8 +70,12 @@
       "id": 1
     },
     {
-      "Date": "1998-12-31T19:00:00.000Z",
+      "Date": null,
       "id": 2
+    },
+    {
+      "Date": "2022-11-10T19:00:00.000Z",
+      "id": 3
     }
   ]
 }

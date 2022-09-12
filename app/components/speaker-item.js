@@ -14,7 +14,6 @@
     import { inject as service } from '@ember/service';
 
     export default Component.extend({
-        store: service('store'),
 
         init() {
             this._super(...arguments);
@@ -22,8 +21,9 @@
 
         actions: {
             async deletespeaker(speaker) {
-                await speaker.destroyRecord();
-                this.get('store').unloadRecord(speaker);
+                // await speaker.destroyRecord();
+                // this.get('store').unloadRecord(speaker);
+                this.destroyspeaker(speaker);
             }
         }
     });

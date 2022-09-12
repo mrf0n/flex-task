@@ -5,7 +5,7 @@ export default Controller.extend({
     store: service(),
     actions: {
         async addReport() {
-            let meetingModel = this.get('model');
+            let meetingModel = this.get('model').meeting;
             let id = meetingModel.get('id');
             if(this.get('newBook') && this.get('newSpeaker'))
             {

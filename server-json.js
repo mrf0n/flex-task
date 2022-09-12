@@ -4,6 +4,7 @@ const jsonServer = require('json-server')
 const path = require('path');
 const multer = require('multer');
 const fs = require("fs");
+const { request } = require('http');
 
 const pathToSave = 'public/uploads';
 const urlBase = '/uploads/';
@@ -104,6 +105,10 @@ server.post('/saveURL', function (req, res) {
 });
 
 // Use default router
+server.use((req, res, next) => {
+  
+});
+
 server.use(router)
 
 let port = 3000;
