@@ -176,12 +176,12 @@ server.use((request, response, next) => {
         });
 
     reports.filter(function(report) {
-      const meetings = meatings.filter((m) => m.id === report.meetingId).map((meeting) => {
+      const meetings2 = meetings.filter((m) => m.id === report.meetingId).map((meeting) => {
         meeting.reports = router.db.get('reports').filter((r) => r.meetingId === meeting.id).value()
 
         return meeting;
       }).value();
-      meetingstemp.push(meetings[0])
+      meetingstemp.push(meetings2[0])
     });
     
     let identify = meetingstemp.map(o => o.id) 
