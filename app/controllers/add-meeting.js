@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default Controller.extend({
     store: service('store'),
@@ -25,7 +26,8 @@ export default Controller.extend({
         },
         async deleteMeeting(meeting) {
             let cureentmeet = meeting; 
-            let reportcache = promisesarr = [];
+            let reportcache = [];
+            let promisesarr = [];
             let meetarr = cureentmeet.get('reports').toArray();;
             meetarr.forEach(report => {
                 reportcache.push(report);

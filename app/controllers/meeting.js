@@ -23,39 +23,52 @@ export default Controller.extend({
           .map((value, index) => index + 1);
     }),
 
-    selectedSpeaker: computed('speaker', function() {
+    speakerPS: computed('speaker', function() {
         const speaker = this.get('speaker');
         return speaker ? this.get('model.speakers').findBy('id', speaker) : null;
     }),
 
-    selectedBook: computed('book', function() {
+    bookPS: computed('book', function() {
         const book = this.get('book');
         return book ? this.get('model.books').findBy('id', book) : null;
     }),
 
     actions: {
-        getBooks() {
-            return this.store.findAll('book');
+        async deleteMeeting(meeting) {
+            let cureentmeet = meeting; 
+            let reportcache = [];
+            let promisesarr = [];
+            let meetarr = cureentmeet.get('reports').toArray();;
+            meetarr.forEach(report => {
+                reportcache.push(report);
+                promisesarr.push(report.destroyRecord());
+            });
+            await RSVP.all(promisesarr);
+
+            reportcache.forEach(report => {
+                this.store.unloadRecord(report);
+            })
+            await meeting.destroyRecord();
+            this.store.unloadRecord(meeting);
+            // this.transitionToRoute('meeting');
         },
-        getSpeakers() {
-            return this.store.findAll('speaker');
-        },
-        changeSpeaker(speaker) {
+        setSpeaker(speaker) {
             this.set('speaker', speaker ? speaker.get('id') : '');
         },
 
-        changeBook(book) {
+        setBook(book) {
             this.set('book', book ? book.get('id') : '');
         },
 
-        changeDate(date) {
+        setDate(date) {
             this.set('date', date ? date.get('id') : '');
         },
+        
         updatePage() {
             this.send("reloadModel");
         },
 
-        cleanSearchParam() {
+        clear() {
             this.set('book', '');
             this.set('speaker', '');
             this.set('date', '');

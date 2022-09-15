@@ -62,6 +62,17 @@
       "speakerId": 5,
       "meetingId": 3,
       "id": 2
+    },
+    {
+      "date": null,
+      "rate": "14",
+      "clipURL": "1",
+      "presentationURL": "1",
+      "overview": "12312313",
+      "bookId": 2,
+      "speakerId": 4,
+      "meetingId": 4,
+      "id": 3
     }
   ],
   "meetings": [
@@ -70,12 +81,38 @@
       "id": 1
     },
     {
-      "Date": null,
-      "id": 2
+      "Date": "2022-11-10T19:00:00.000Z",
+      "id": 3,
+      "reports": [
+        {
+          "date": "2022-11-10T19:00:00.000Z",
+          "rate": "65",
+          "clipURL": "6",
+          "presentationURL": "5",
+          "overview": "a",
+          "bookId": 2,
+          "speakerId": 5,
+          "meetingId": 3,
+          "id": 2
+        }
+      ]
     },
     {
-      "Date": "2022-11-10T19:00:00.000Z",
-      "id": 3
+      "Date": "2022-11-04T19:00:00.000Z",
+      "id": 4,
+      "reports": [
+        {
+          "date": null,
+          "rate": "14",
+          "clipURL": "1",
+          "presentationURL": "1",
+          "overview": "12312313",
+          "bookId": 2,
+          "speakerId": 4,
+          "meetingId": 4,
+          "id": 3
+        }
+      ]
     }
   ]
 }

@@ -20,7 +20,9 @@
                 <option>Фамилия имя</option>
             </select> --}}
             {{!-- {{#power-select id="inputSpeaker" triggerClass="selectpicker form-control dropdown-filter-control" searchEnabled=true onchange=(action (mut speaker)) selected=speaker search=(action "getSpeakers") as |speaker|}} --}}
-            {{#power-select id="inputSpeaker" triggerClass="selectpicker form-control dropdown-filter-control" onchange=(action "changeSpeaker") selected=selectedSpeaker options=model.speakers as |speaker|}}    
+            {{#power-select id="inputSpeaker" triggerClass="selectpicker form-control dropdown-filter-control" onchange=(action "setSpeaker") 
+            selected=speakerPS 
+            options=model.speakers as |speaker|}}    
                 {{speaker.name}} {{speaker.surname}}
             {{/power-select}}
         </div>
@@ -34,7 +36,9 @@
                 <option>Название книги</option>
             </select> --}}
             {{!-- {{#power-select id="inputBook" triggerClass="selectpicker form-control dropdown-filter-control" searchEnabled=true onchange=(action (mut book)) selected=book search=(action "getBooks") as |book|}} --}}
-            {{#power-select id="inputBook" triggerClass="selectpicker form-control dropdown-filter-control" onchange=(action "changeBook") selected=selectedBook options=model.books as |book|}}    
+            {{#power-select id="inputBook" triggerClass="selectpicker form-control dropdown-filter-control" onchange=(action "setBook") 
+            selected=bookPS 
+            options=model.books as |book|}}    
                 {{book.name}}
             {{/power-select}}
         </div>
@@ -63,7 +67,7 @@
                 </svg>
             </button>
             {{!-- <button type="button" class="btn btn-outline-secondary my-2" disabled="disabled"> --}}
-                <button type="button"  onclick={{action "cleanSearchParam"}} class="btn btn-outline-secondary my-2">
+                <button type="button"  onclick={{action "clear"}} class="btn btn-outline-secondary my-2">
                 <svg viewBox="0 0 16 16" class="bi bi-x card-button" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                 </svg>

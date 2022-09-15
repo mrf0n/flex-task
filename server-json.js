@@ -105,8 +105,94 @@ server.post('/saveURL', function (req, res) {
 });
 
 // Use default router
-server.use((req, res, next) => {
-  
+server.use((request, response, next) => {
+  // const date = request.query.date;
+  // const book = Number(request.query.book);
+  // const speaker = Number(request.query.speaker);
+  // // console.log(Number.isNaN(book));
+  // // console.log(Number.isNaN(speaker));
+  // // console.log(date);
+  // if (request.method === 'GET' && request.path === '/meetings' && 
+  // (date!=undefined || !Number.isNaN(book) || !Number.isNaN(speaker))) {
+  //   const meetings = router.db.get('meetings').filter((m) => {
+  //     if(date!=undefined) {
+  //       var ourdate = new Date(String(m.Date));
+  //       ourdate.setDate(ourdate.getDate() + 1);
+  //       var datemeet = new Date(request.query.date + "T19:00:00.000Z");
+  //       // console.log(datemeet);
+  //       // console.log(ourdate);
+  //       return String(ourdate) == String(datemeet);
+  //     }
+  //     return true;
+  //   });
+    
+  //   const meetings2 = meetings.filter((m) => { 
+  //     const reports = router.db.get('reports').filter((r) => r.meetingId === m.id );
+
+  //     if(!Number.isNaN(book) && !Number.isNaN(speaker)) {
+  //       const reports2 = reports.filter((r) => {
+  //         return r.bookId == book && r.speakerId == speaker;
+  //       }).value();
+  //       return (reports2.length>0);
+  //     }
+  //     else if(!Number.isNaN(book) || !Number.isNaN(speaker)) {
+  //       const reports2 = reports.filter((r) => {
+  //         return r.bookId == book || r.speakerId == speaker;
+  //       }).value();
+  //       return (reports2.length>0);
+  //     }
+  //     return true;
+  //   }).value();
+
+  //   // response.json(meetings);
+  //   response.json(meetings2);
+  // } else {
+  //   next();
+  // }
+
+
+  const date = request.query.date;
+  const book = Number(request.query.book)
+  const speaker = Number(request.query.speaker)
+  if (request.method === 'GET' && request.path === '/meetings' && !Number.isNaN(book) || !Number.isNaN(speaker) || date!=undefined) {
+    const meetingstemp = []
+    let reports = []
+    if (!Number.isNaN(book) && !Number.isNaN(speaker)) {
+      reports = router.db.get('reports').filter((r) => r.bookId === book && r.speakerId === speaker).value()
+    } else {
+      reports = router.db.get('reports').filter((r) => r.bookId === book || r.speakerId === speaker).value()
+    }
+    
+    const meetings = router.db.get('meetings').filter((m) => {
+          if(date!=undefined) {
+            var ourdate = new Date(String(m.Date));
+            ourdate.setDate(ourdate.getDate() + 1);
+            var datemeet = new Date(request.query.date + "T19:00:00.000Z");
+            // console.log(datemeet);
+            // console.log(ourdate);
+            return String(ourdate) == String(datemeet);
+          }
+          return true;
+        });
+
+    reports.filter(function(report) {
+      const meetings = meatings.filter((m) => m.id === report.meetingId).map((meeting) => {
+        meeting.reports = router.db.get('reports').filter((r) => r.meetingId === meeting.id).value()
+
+        return meeting;
+      }).value();
+      meetingstemp.push(meetings[0])
+    });
+    
+    let identify = meetingstemp.map(o => o.id) 
+    const meetingsfinal = meetingstemp.filter(({id}, index) => !identify.includes(id, index + 1));
+    
+    
+    response.json(meetingsfinal);
+  } else {
+    next();
+  }
+
 });
 
 server.use(router)
