@@ -25,16 +25,15 @@ export default Controller.extend({
             }
             else resolve("images/book-cover.jpg");
         });
-        let tags = new Promise((resolve, reject) => {
-            this.get('tags') ? resolve(this.get('tags')) : resolve([]);
-        });
+
+        let tags = this.get('tags') ? this.get('tags') : [];
         let bookModel = {
             name: this.get('name'),
             author: this.get('author'),
             size: this.get('size'),
             description: this.get('description'),
             coverURL: await coverURL,
-            tags: await tags,
+            tags: this.get('tags'),
         };
 
         let newBook = this.get('store').createRecord('book', bookModel);

@@ -1,9 +1,14 @@
 
 /* eslint-disable no-console */
 const jsonServer = require('json-server')
+const jwt = require("jsonwebtoken")
+const crypto = require('crypto')
 const path = require('path');
 const multer = require('multer');
 const fs = require("fs");
+const server = jsonServer.create()
+const router = jsonServer.router('./tests/test-data/db.json')
+const middlewares = jsonServer.defaults()
 const { request } = require('http');
 
 const pathToSave = 'public/uploads';
@@ -48,9 +53,37 @@ const getError = (title, detail, status, pathToAttribute) => {
   return getErrors(errors);
 };
 
-const server = jsonServer.create()
-const router = jsonServer.router('./tests/test-data/db.json')
-const middlewares = jsonServer.defaults()
+const getUnauthorizedError = () => getError('Login', 'You are not authorized, please log in', 401, null);
+const getForbiddenError = () => getError('Forbidden', 'You don\'t have permissions to this resource', 403, null);
+
+const getBaseRoute = (req) => {
+  const path = req.path.split('/');
+  return path.length > 1 ? path[1] : '/';
+};
+
+const isAuthorized = (req) => {
+  const baseRoute = getBaseRoute(req);
+  if (req.path === '/recaptcha' || req.path === '/users' || req.path === '/token' || ((baseRoute === 'authors' || baseRoute === 'books' || baseRoute === 'reviews') && req.method === 'GET')) {
+    return 200;
+  }
+
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (token == null) {
+    return 401;
+  }
+
+  try {
+    let user = jwt.verify(token, secretKey);
+    req.app.set('sessionUser', user);
+    return 200;
+  }
+  catch (e) {
+    return 403;
+  }
+};
+
 function responseInterceptor(req, res, next) {
   var originalSend = res.send;
 
@@ -194,6 +227,110 @@ server.use((request, response, next) => {
   }
 
 });
+
+server.use(jsonServer.bodyParser);
+
+server.post('/token', function (req, res) {
+  const emailFromBody = req.body.email;
+  const passwordFromBody = req.body.password;
+  const hashedPassword = crypto.createHmac('sha256', hashingSecret).update(passwordFromBody).digest('hex');
+
+  const db = router.db; //lowdb instance
+  const user = db.get('users').find({ email: emailFromBody, password: hashedPassword }).value();
+
+  if (user) {
+    const token = generateAccessToken({ email: user.email, username: user.username });
+    res.json({ token });
+  }
+  else {
+    res.status(401).json(getError('Login', 'Error logging in user with that e-mail and password', 401, null));
+  }
+});
+
+// // Check authorization
+// server.use((req, res, next) => {
+//   const authorizeCode = isAuthorized(req);
+//   if (authorizeCode === 200) {
+//     next() // continue to JSON Server router
+//   }
+//   else if (authorizeCode === 401) {
+//     res.status(401).json(getUnauthorizedError());
+//   }
+//   else if (authorizeCode === 403) {
+//     res.status(403).json(getForbiddenError());
+//   }
+//   else {
+//     res.status(403).json(getForbiddenError());
+//   }
+// });
+
+// // Get current user
+// server.use((req, res, next) => {
+//   if (req.path === '/users/me' && req.method === 'GET') {
+//     let storedUser = req.app.get('sessionUser');
+//     if (!storedUser) {
+//       res.sendStatus(404);
+//     }
+//     else {
+//       const db = router.db; //lowdb instance
+//       const user = db.get('users').find({ username: storedUser.username }).value();
+//       const userCopy = Object.assign({}, user);
+
+//       delete userCopy.password;
+//       delete userCopy.passwordConfirmation;
+//       res.json(userCopy);
+//     }
+//   }
+//   else {
+//     next();
+//   }
+// });
+
+// // Disable get, modify or delete users
+// server.use((req, res, next) => {
+//   if (getBaseRoute(req) === 'users' && (req.method === 'PATCH' || req.method === 'DELETE')) {
+//     res.sendStatus(404);
+//   }
+//   else if (getBaseRoute(req) === 'users' && req.method === 'GET') {
+//     let urlSegms = req.url.split('/');
+//     let idStr = urlSegms[urlSegms.length - 1];
+//     let id = parseInt(idStr);
+//     id = isNaN(id) ? idStr : id;
+
+//     const db = router.db; //lowdb instance
+//     const user = db.get('users').find({ id: id }).value();
+//     const userCopy = Object.assign({}, user);
+
+//     delete userCopy.password;
+//     delete userCopy.passwordConfirmation;
+//     res.json(userCopy);
+//   }
+//   else {
+//     // Continue to JSON Server router
+//     next();
+//   }
+// });
+
+// // Validate user to add
+server.use((req, res, next) => {
+  const db = router.db; //lowdb instance
+  const user = db.get('users').find({ email: req.body.email }).value();
+
+  const valid = !req.body || req.body && !user;
+  if (getBaseRoute(req) === 'users' && req.method === 'POST' && !valid) {
+    res.status(422).json(getError('email', 'email is already taken', 422, '/data/attributes/email'));
+  }
+  else if (getBaseRoute(req) === 'users' && req.method === 'POST') {
+    const hashedPassword = crypto.createHmac('sha256', hashingSecret).update(req.body.password).digest('hex');
+    req.body.password = hashedPassword;
+    next();
+  }
+  else {
+    // Continue to JSON Server router
+    next();
+  }
+});
+
 
 server.use(router)
 

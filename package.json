@@ -44,6 +44,8 @@
     "ember-power-select": "^2.3.5",
     "ember-resolver": "^4.0.0",
     "ember-service-helper": "^0.2.1",
+    "ember-simple-auth": "^4.2.2",
+    "ember-simple-auth-token": "^5.3.0",
     "ember-source": "~3.1.0",
     "ember-welcome-page": "^3.0.0",
     "eslint-plugin-ember": "^5.0.0",
@@ -58,6 +60,7 @@
     "blueimp-file-upload": "^10.32.0",
     "broccoli-funnel": "^3.0.8",
     "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "path": "^0.12.7",
     "require": "^2.4.20"

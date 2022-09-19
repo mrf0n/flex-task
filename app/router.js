@@ -21,6 +21,8 @@ Router.map(function() {
   this.route('add-report', { path: '/add-report/:id' });
   this.route('add-meeting', { path: '/add-meeting/:id' });
   this.route('add-report-to-meet', { path: '/add-report-to-meet/:id' });
+  this.route('login', { path: '/login' });
+  this.route('register', { path: '/register' });
 });
 
 export default Router;
