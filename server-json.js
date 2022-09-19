@@ -6,13 +6,22 @@ const crypto = require('crypto')
 const path = require('path');
 const multer = require('multer');
 const fs = require("fs");
-const server = jsonServer.create()
-const router = jsonServer.router('./tests/test-data/db.json')
-const middlewares = jsonServer.defaults()
+const server = jsonServer.create();
+const router = jsonServer.router('./tests/test-data/db.json');
+const middlewares = jsonServer.defaults();
+const secretKey = '09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611';
+const hashingSecret = "f844b09ff50c";
+const fetch = require('node-fetch');
 const { request } = require('http');
 
 const pathToSave = 'public/uploads';
 const urlBase = '/uploads/';
+
+const generateAccessToken = (userData) => {
+  // expires after half and hour (1800 seconds = 30 minutes)
+  return jwt.sign(userData, secretKey, { expiresIn: '1800s' });
+}
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!fs.existsSync(path.join(__dirname, pathToSave))) {
@@ -61,28 +70,28 @@ const getBaseRoute = (req) => {
   return path.length > 1 ? path[1] : '/';
 };
 
-const isAuthorized = (req) => {
-  const baseRoute = getBaseRoute(req);
-  if (req.path === '/recaptcha' || req.path === '/users' || req.path === '/token' || ((baseRoute === 'authors' || baseRoute === 'books' || baseRoute === 'reviews') && req.method === 'GET')) {
-    return 200;
-  }
+// const isAuthorized = (req) => {
+//   const baseRoute = getBaseRoute(req);
+//   if (req.path === '/recaptcha' || req.path === '/users' || req.path === '/token' || ((baseRoute === 'authors' || baseRoute === 'books' || baseRoute === 'reviews') && req.method === 'GET')) {
+//     return 200;
+//   }
 
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+//   const authHeader = req.headers['authorization'];
+//   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == null) {
-    return 401;
-  }
+//   if (token == null) {
+//     return 401;
+//   }
 
-  try {
-    let user = jwt.verify(token, secretKey);
-    req.app.set('sessionUser', user);
-    return 200;
-  }
-  catch (e) {
-    return 403;
-  }
-};
+//   try {
+//     let user = jwt.verify(token, secretKey);
+//     req.app.set('sessionUser', user);
+//     return 200;
+//   }
+//   catch (e) {
+//     return 403;
+//   }
+// };
 
 function responseInterceptor(req, res, next) {
   var originalSend = res.send;
@@ -265,51 +274,51 @@ server.post('/token', function (req, res) {
 // });
 
 // // Get current user
-// server.use((req, res, next) => {
-//   if (req.path === '/users/me' && req.method === 'GET') {
-//     let storedUser = req.app.get('sessionUser');
-//     if (!storedUser) {
-//       res.sendStatus(404);
-//     }
-//     else {
-//       const db = router.db; //lowdb instance
-//       const user = db.get('users').find({ username: storedUser.username }).value();
-//       const userCopy = Object.assign({}, user);
+server.use((req, res, next) => {
+  if (req.path === '/users/me' && req.method === 'GET') {
+    let storedUser = req.app.get('sessionUser');
+    if (!storedUser) {
+      res.sendStatus(404);
+    }
+    else {
+      const db = router.db; //lowdb instance
+      const user = db.get('users').find({ username: storedUser.username }).value();
+      const userCopy = Object.assign({}, user);
 
-//       delete userCopy.password;
-//       delete userCopy.passwordConfirmation;
-//       res.json(userCopy);
-//     }
-//   }
-//   else {
-//     next();
-//   }
-// });
+      delete userCopy.password;
+      delete userCopy.passwordConfirmation;
+      res.json(userCopy);
+    }
+  }
+  else {
+    next();
+  }
+});
 
-// // Disable get, modify or delete users
-// server.use((req, res, next) => {
-//   if (getBaseRoute(req) === 'users' && (req.method === 'PATCH' || req.method === 'DELETE')) {
-//     res.sendStatus(404);
-//   }
-//   else if (getBaseRoute(req) === 'users' && req.method === 'GET') {
-//     let urlSegms = req.url.split('/');
-//     let idStr = urlSegms[urlSegms.length - 1];
-//     let id = parseInt(idStr);
-//     id = isNaN(id) ? idStr : id;
+// Disable get, modify or delete users
+server.use((req, res, next) => {
+  if (getBaseRoute(req) === 'users' && (req.method === 'PATCH' || req.method === 'DELETE')) {
+    res.sendStatus(404);
+  }
+  else if (getBaseRoute(req) === 'users' && req.method === 'GET') {
+    let urlSegms = req.url.split('/');
+    let idStr = urlSegms[urlSegms.length - 1];
+    let id = parseInt(idStr);
+    id = isNaN(id) ? idStr : id;
 
-//     const db = router.db; //lowdb instance
-//     const user = db.get('users').find({ id: id }).value();
-//     const userCopy = Object.assign({}, user);
+    const db = router.db; //lowdb instance
+    const user = db.get('users').find({ id: id }).value();
+    const userCopy = Object.assign({}, user);
 
-//     delete userCopy.password;
-//     delete userCopy.passwordConfirmation;
-//     res.json(userCopy);
-//   }
-//   else {
-//     // Continue to JSON Server router
-//     next();
-//   }
-// });
+    delete userCopy.password;
+    delete userCopy.passwordConfirmation;
+    res.json(userCopy);
+  }
+  else {
+    // Continue to JSON Server router
+    next();
+  }
+});
 
 // // Validate user to add
 server.use((req, res, next) => {

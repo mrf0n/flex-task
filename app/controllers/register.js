@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
 export default Controller.extend({
     actions: {

@@ -116,6 +116,10 @@
     }
   ],
   "users": [
-    
+    {
+      "email": "a@a.ru",
+      "password": "666f7ac00db9d033369e5db9232e83d58e46ffedcfca2c184a0d8dcadc2676b6",
+      "id": 1
+    }
   ]
 }
