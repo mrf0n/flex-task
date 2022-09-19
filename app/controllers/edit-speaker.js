@@ -6,23 +6,18 @@ export default Controller.extend({
 
         actions: {
             async edit_speaker() {
-                // await this.get("dataService").edit_speaker({
-                //     id: parseInt(id_speaker),
-                //     name: this.get('name'),
-                //     surname: this.get('surname'),
-                //     famility: this.get('famility'),
-                // })
-
                 let speakerModel = this.get('model');
-                this.get('name') ? speakerModel.set('name', this.get('name')) : null;
-                this.get('surname') ? speakerModel.set('surname', this.get('surname')) : null;
-                this.get('famility') ? speakerModel.set('famility', this.get('famility')) : null;
+                this.get('name') ? speakerModel.set('name', this.get('name')) : undefined;
+                this.get('surname') ? speakerModel.set('surname', this.get('surname')) : undefined;
+                this.get('famility') ? speakerModel.set('famility', this.get('famility')) : undefined;
        
                 await speakerModel.save();
-
-                this.set('name'); 
-                this.set('surname'); 
-                this.set('famility');
+                this.setProperties({
+                    name: undefined,
+                    surname: undefined,
+                    famility: undefined
+                });
+ 
                 this.transitionToRoute('speaker');
             }
         }

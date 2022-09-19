@@ -22,7 +22,14 @@ export default Controller.extend({
                 let newReport = this.get('store').createRecord('report', reportModel);
                 newReport.serialize();
                 await newReport.save();
-                this.set('rate'); this.set('newBook'); this.set('newSpeaker'); this.set('newpresURL'); this.set('newclipURL'); this.set('newoverview');
+                this.setProperties({
+                    date: undefined,
+                    rate: undefined,
+                    presentationURL: undefined,
+                    clipURL: undefined,
+                    overview: undefined,
+                });
+                
                 this.transitionToRoute('edit-meeting', id);
             }
             else {

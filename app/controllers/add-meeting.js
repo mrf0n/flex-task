@@ -19,7 +19,10 @@ export default Controller.extend({
                     report.save();
                 });
                 await meetingModel.save();
-                this.set('datameet');
+
+                this.setProperties({
+                    Date: undefined
+                });
                 this.transitionToRoute('meeting');
             }
             else alert('Поле даты не заполнено!')

@@ -8,9 +8,6 @@ export default Controller.extend({
      actions: {
         changeTags(newTags) {
             set(this, 'tags', [...newTags]);
-      
-            // eslint-disable-next-line no-console
-            // console.log(get(this, 'tags'));
           },
         changeUploadData(uploadData) {
             set(this, 'uploadData', uploadData);
@@ -34,8 +31,12 @@ export default Controller.extend({
             if(this.get('tags')) bookModel.set('tags', this.get('tags'));
 
             await bookModel.save();
-
-            this.set('name'); this.set('author'); this.set('size'); this.set('description');
+            this.setProperties({
+                name: undefined,
+                author: undefined,
+                size: undefined,
+                description: undefined
+            });
             this.transitionToRoute('book');
         },
         reset() {

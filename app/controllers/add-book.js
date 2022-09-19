@@ -39,7 +39,13 @@ export default Controller.extend({
         let newBook = this.get('store').createRecord('book', bookModel);
         newBook.serialize();
         await newBook.save();
-        this.set('name'); this.set('author'); this.set('size'); this.set('description');
+        this.setProperties({
+            name: undefined,
+            author: undefined,
+            size: undefined,
+            description: undefined,
+        });
+
         this.transitionToRoute('book');
     },   
     reset() {

@@ -21,7 +21,10 @@ import { inject as service } from '@ember/service';
             }
             await meetingModel.save();
 
-            this.set('datameet');
+
+            this.setProperties({
+                Date: undefined
+            });
             this.transitionToRoute('meeting');
         },
         async deleteReport(report) {

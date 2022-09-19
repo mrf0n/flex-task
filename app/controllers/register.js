@@ -11,13 +11,16 @@ export default Controller.extend({
           try {
             newUser = this.get('store').createRecord('user', user);
             await newUser.save();
-    
             this.transitionToRoute('index');
           }
           catch(e) {
             e.user = newUser;
             this.send('error', e);
           }
+          this.setProperties({
+            email: undefined,
+            password: undefined
+          });
         },
     
         error(error, transition) {

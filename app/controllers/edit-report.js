@@ -14,9 +14,13 @@ export default Controller.extend({
             this.get('newSpeaker') ? reportModel.set('speaker', this.get('newSpeaker')) : undefined;
 
             await reportModel.save();
+            this.setProperties({
+                rate: undefined,
+                newpresURL: undefined,
+                clipURL:undefined,
+                newoverview: undefined
+            });
 
-            this.set('rate');
-            this.set('rate'); this.set('newBook'); this.set('newSpeaker'); this.set('newpresURL'); this.set('newclipURL'); this.set('newoverview');
             this.transitionToRoute('edit-meeting', reportModel.meeting.get('id'));
          },
          getBooks() {
