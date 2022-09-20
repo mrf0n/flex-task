@@ -30,9 +30,7 @@ export default Route.extend({
         if(date) {
             query.date = date;
         }
-
-        //return this.get('store').query('meeting', query);
-        //return this.get('store').findAll('meeting');
+        
         return RSVP.hash({
             meetings: this.get('store').query('meeting', query),
             speakers: this.get('store').findAll('speaker'),
