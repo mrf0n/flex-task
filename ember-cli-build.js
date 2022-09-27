@@ -24,14 +24,20 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
   app.import('vendor/tagsinput.css');
+  app.import('vendor/bootstrap-datepicker.css');
   
 
   //app.import('vendor/jquery.flexberry.downloadFile.js');
   //app.import('vendor/jquery.blobajaxtransport.js');
   // app.import('node_modules/blueimp-file-upload/js/jquery.fileupload.js');
 
+  const js = funnel('node_modules/bootstrap/dist/js', {
+    files: ['**/*.js'],
+    destDir: 'bootstrap/js'
+  });
+
   const jsFiles = funnel('vendor', {
-    files: ['popper.min.js', 'tagsinput.js', 'bootstrap-file.js'],
+    files: ['popper.min.js', 'tagsinput.js', 'bootstrap-file.js', 'bootstrap-datepicker.min.js', 'bootstrap-datepicker.ru.min.js', 'bootstrap-select.min.js'],
     destDir: 'js'
   });
   const jqueryFiles = funnel('node_modules/blueimp-file-upload/js', {
@@ -39,5 +45,5 @@ module.exports = function(defaults) {
     destDir: 'js'
   });
 
-  return app.toTree([jsFiles, jqueryFiles]);
+  return app.toTree([jsFiles, jqueryFiles, js]);
 };

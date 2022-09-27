@@ -24,6 +24,17 @@
       ],
       "coverURL": "images/book-cover.jpg",
       "id": 5
+    },
+    {
+      "name": "Конституция Российской Федерации (с гимном России). Новая редакция",
+      "author": "В. В. Путин",
+      "size": "64",
+      "description": "https://www.labirint.ru/books/744713/",
+      "tags": [
+        "рф"
+      ],
+      "coverURL": "/uploads/cover.jpg-1663674766312.webp",
+      "id": 6
     }
   ],
   "speakers": [

@@ -61,7 +61,7 @@ export default Controller.extend({
         },
 
         setDate(date) {
-            this.set('date', date ? date.get('id') : '');
+            this.set('date', date);
         },
         
         updatePage() {
