@@ -75,20 +75,42 @@
       "id": 2
     },
     {
+      "date": "2022-05-17T19:00:00.000Z",
+      "rate": "5",
+      "clipURL": "asdasd",
+      "presentationURL": "adsasd",
+      "overview": "sss",
+      "bookId": 5,
+      "speakerId": 4,
+      "meetingId": 1,
+      "id": 3
+    },
+    {
       "date": null,
-      "rate": "14",
-      "clipURL": "1",
-      "presentationURL": "1",
-      "overview": "12312313",
-      "bookId": 2,
+      "rate": "5",
+      "clipURL": "d",
+      "presentationURL": "d",
+      "overview": "работает",
+      "bookId": 6,
       "speakerId": 4,
       "meetingId": 4,
-      "id": 3
+      "id": 4
+    },
+    {
+      "date": null,
+      "rate": "30",
+      "clipURL": "1",
+      "presentationURL": "1",
+      "overview": "s",
+      "bookId": 6,
+      "speakerId": 5,
+      "meetingId": 5,
+      "id": 5
     }
   ],
   "meetings": [
     {
-      "Date": "2022-05-01T19:00:00.000Z",
+      "Date": "2022-05-17T19:00:00.000Z",
       "id": 1
     },
     {
@@ -109,21 +131,12 @@
       ]
     },
     {
-      "Date": "2022-11-04T19:00:00.000Z",
-      "id": 4,
-      "reports": [
-        {
-          "date": null,
-          "rate": "14",
-          "clipURL": "1",
-          "presentationURL": "1",
-          "overview": "12312313",
-          "bookId": 2,
-          "speakerId": 4,
-          "meetingId": 4,
-          "id": 3
-        }
-      ]
+      "Date": null,
+      "id": 4
+    },
+    {
+      "Date": "2022-05-17T19:00:00.000Z",
+      "id": 5
     }
   ],
   "users": [

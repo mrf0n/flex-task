@@ -10,8 +10,8 @@ export default Controller.extend({
             this.get('newpresURL') ? reportModel.set('presentationURL', this.get('newpresURL')) : undefined;
             this.get('clipURL') ? reportModel.set('videoURL', this.get('newclipURL')) : undefined;
             this.get('newoverview') ? reportModel.set('overview', this.get('newoverview')) : undefined;
-            this.get('newBook') ? reportModel.set('book', this.get('newBook')) : undefined;
-            this.get('newSpeaker') ? reportModel.set('speaker', this.get('newSpeaker')) : undefined;
+            if(this.get('newBook')) reportModel.set('book', this.get('newBook'));
+            if(this.get('newSpeaker')) reportModel.set('speaker', this.get('newSpeaker'));
 
             await reportModel.save();
             this.setProperties({

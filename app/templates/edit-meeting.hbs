@@ -5,7 +5,8 @@
              <h4>Дата встречи</h4>
              <div class="row h-100 justify-content-between mb-4">
                  <div class="col-md-auto">
-                     <div class="datepicker datepicker-meeting date input-group p-0">
+                    {{date-picker date=model.Date changeDate=(action (mut datameet))}}
+                     {{!-- <div class="datepicker datepicker-meeting date input-group p-0">
                          <input type="text" placeholder="Дата..." class="form-control" id="meetingDate" value="{{model.Date}}" oninput={{action (mut datameet) value="target.value"}}>
                          <div class="input-group-append">
                              <span class="input-group-text px-4">
@@ -15,7 +16,7 @@
                                  </svg>
                              </span>
                          </div>
-                     </div>
+                     </div> --}}
                  </div>
              </div>
              <div class="row h-100 justify-content-between">

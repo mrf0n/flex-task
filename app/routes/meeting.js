@@ -19,7 +19,7 @@ export default Route.extend({
     model({ page, speaker, book, date }) {
         const query = {
             _page: page,
-            _limit: 3,
+            _limit: 2,
         };
         if(speaker) { 
             query.speaker = speaker;

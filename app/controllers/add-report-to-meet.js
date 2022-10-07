@@ -28,6 +28,8 @@ export default Controller.extend({
                     presentationURL: undefined,
                     clipURL: undefined,
                     overview: undefined,
+                    book: undefined,
+                    speaker:undefined
                 });
                 
                 this.transitionToRoute('edit-meeting', id);

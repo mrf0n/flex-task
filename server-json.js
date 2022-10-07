@@ -156,8 +156,12 @@ server.use((request, response, next) => {
     let reports = []
     if (!Number.isNaN(book) && !Number.isNaN(speaker)) {
       reports = router.db.get('reports').filter((r) => r.bookId === book && r.speakerId === speaker).value()
-    } else {
+    } else if(!Number.isNaN(book) || !Number.isNaN(speaker)) {
       reports = router.db.get('reports').filter((r) => r.bookId === book || r.speakerId === speaker).value()
+    }
+    else{
+      reports = router.db.get('reports');
+      console.log(reports)
     }
     
     const meetings = router.db.get('meetings').filter((m) => {
