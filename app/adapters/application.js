@@ -1,14 +1,24 @@
 import DS from 'ember-data';
 import ENV from 'h-work-2/config/environment';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 export default DS.JSONAPIAdapter.extend({
+    session: service(),
     host: ENV.backendURL,
-    init() {
-        this._super(...arguments);
-        this.set('headers', {
+
+    headers: computed(function() {
+        let resultHeaders = {
             'Content-Type': 'application/json'
-        });
-    },
+        };
+
+        if (this.get('session.isAuthenticated')) {
+            resultHeaders['Authorization'] = `Bearer ${this.session.data.authenticated.token}`;
+        }
+
+        return resultHeaders;
+    }).volatile(),
+
     buildURL(modelName, id, snapshot, requestType, query) {       
         let url = this._super(...arguments);
         if (modelName === 'meeting' && requestType === 'query') {

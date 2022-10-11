@@ -1,9 +1,7 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
-import {Promise} from 'rsvp';
-import {later} from '@ember/runloop';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Route.extend({
+export default Route.extend(AuthenticatedRouteMixin, {
 
     queryParams: {
         search: {
@@ -11,21 +9,7 @@ export default Route.extend({
         }
     },
 
-    dataService: service('data'),
-
     model({ search }){
-    //     return new Promise((resolve, reject) => {
-    //         later(async()=> {
-    //             try{
-    //                 let books = search ? this.get("dataService").get_speakers(search) : this.get("dataService").get_speakers();
-    //                 resolve(books);
-    //             }
-    //             catch(e){
-    //                 reject('Connection failed');
-    //             }
-    //         },1000);
-    //     })
-
         return search ? this.get('store').query('speaker', {q: search}) : this.get('store').findAll('speaker');
     },
     actions: {

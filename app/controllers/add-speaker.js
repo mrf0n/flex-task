@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 export default Controller.extend({
      dataService: service('data'),
+     currentUser: service(),
 
      actions: {
          async makespeaker() {
@@ -9,6 +10,7 @@ export default Controller.extend({
                 name: this.get('name'),
                 surname: this.get('surname'),
                 famility: this.get('famility'),
+                user: this.get('currentUser.user')
             };
             
             let newSpeaker = this.get('store').createRecord('speaker', speakerModel);

@@ -1,1 +1,5 @@
-{{outlet}}
+<div class="form-signin-wrapper">
+  <main class="form-signin text-center">
+    {{login-form user=model errors=errors onSubmit=(action "login")}}
+  </main>
+</div>

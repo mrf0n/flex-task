@@ -3,6 +3,8 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
     store: service(),
+    currentUser: service(),
+    
     actions: {
         async addReport() {
             let meetingModel = this.get('model').meeting;
@@ -16,7 +18,8 @@ export default Controller.extend({
                     overview: this.get('newoverview'),
                     book: this.get('newBook'),
                     speaker: this.get('newSpeaker'),
-                    meeting: meetingModel
+                    meeting: meetingModel,
+                    user: this.get('currentUser.user')
                 };
                 let newReport = this.get('store').createRecord('report', reportModel);
                 await newReport.save();

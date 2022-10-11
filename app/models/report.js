@@ -9,5 +9,7 @@ import DS from 'ember-data';
 
      book: DS.belongsTo('book'),
      speaker: DS.belongsTo('speaker'),
-     meeting: DS.belongsTo('meeting')
+     meeting: DS.belongsTo('meeting'),
+
+     user: DS.belongsTo('user')
  });

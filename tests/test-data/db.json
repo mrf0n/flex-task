@@ -12,7 +12,8 @@
         "ghj"
       ],
       "picture": "",
-      "coverURL": "/uploads/cover.jpg-1660576960655.webp"
+      "coverURL": "/uploads/cover.jpg-1660576960655.webp",
+      "userId": 1
     },
     {
       "name": "Основы мат анализа",
@@ -23,6 +24,7 @@
         "бред"
       ],
       "coverURL": "images/book-cover.jpg",
+      "userId": 1,
       "id": 5
     },
     {
@@ -30,6 +32,7 @@
       "author": "В. В. Путин",
       "size": "64",
       "description": "https://www.labirint.ru/books/744713/",
+      "userId": 1,
       "tags": [
         "рф"
       ],
@@ -42,101 +45,75 @@
       "name": "Иван",
       "surname": "Быков",
       "famility": "Владимирович",
+      "userId": 1,
       "id": 4
     },
     {
       "name": "ad",
       "surname": "ad",
+      "userId": 1,
       "famility": "ad",
       "id": 5
     }
   ],
   "reports": [
     {
-      "date": "2022-05-01T19:00:00.000Z",
-      "rate": "5",
-      "clipURL": "1",
-      "presentationURL": "10",
-      "overview": "ыыы",
+      "date": "2022-10-15T19:00:00.000Z",
+      "rate": "55",
+      "clipURL": "http://localhost:4200/add-report-to-meet/1",
+      "presentationURL": "http://localhost:4200/add-report-to-meet/1",
+      "overview": "BAN",
       "bookId": 5,
-      "speakerId": 5,
+      "speakerId": 4,
       "meetingId": 1,
+      "userId": 3,
       "id": 1
     },
     {
-      "date": "2022-11-10T19:00:00.000Z",
-      "rate": "65",
-      "clipURL": "6",
-      "presentationURL": "5",
-      "overview": "a",
-      "bookId": 2,
+      "date": "2022-10-15T19:00:00.000Z",
+      "rate": "4",
+      "clipURL": "2",
+      "presentationURL": "121",
+      "overview": "aa",
+      "bookId": 6,
       "speakerId": 5,
-      "meetingId": 3,
+      "meetingId": 1,
+      "userId": 3,
       "id": 2
     },
     {
-      "date": "2022-05-17T19:00:00.000Z",
-      "rate": "5",
-      "clipURL": "asdasd",
-      "presentationURL": "adsasd",
-      "overview": "sss",
-      "bookId": 5,
-      "speakerId": 4,
-      "meetingId": 1,
+      "date": "2022-10-28T19:00:00.000Z",
+      "rate": "1",
+      "clipURL": "1",
+      "presentationURL": "1",
+      "overview": "kruto",
+      "bookId": 6,
+      "speakerId": 5,
+      "meetingId": 2,
+      "userId": 3,
       "id": 3
     },
     {
-      "date": null,
-      "rate": "5",
-      "clipURL": "d",
-      "presentationURL": "d",
-      "overview": "работает",
-      "bookId": 6,
-      "speakerId": 4,
-      "meetingId": 4,
-      "id": 4
-    },
-    {
-      "date": null,
-      "rate": "30",
+      "date": "2022-10-28T19:00:00.000Z",
+      "rate": "2",
       "clipURL": "1",
       "presentationURL": "1",
-      "overview": "s",
-      "bookId": 6,
-      "speakerId": 5,
-      "meetingId": 5,
-      "id": 5
+      "overview": "3",
+      "bookId": 2,
+      "speakerId": 4,
+      "meetingId": 2,
+      "userId": 3,
+      "id": 4
     }
   ],
   "meetings": [
     {
-      "Date": "2022-05-17T19:00:00.000Z",
+      "Date": "2022-10-15T19:00:00.000Z",
       "id": 1
     },
     {
-      "Date": "2022-11-10T19:00:00.000Z",
-      "id": 3,
-      "reports": [
-        {
-          "date": "2022-11-10T19:00:00.000Z",
-          "rate": "65",
-          "clipURL": "6",
-          "presentationURL": "5",
-          "overview": "a",
-          "bookId": 2,
-          "speakerId": 5,
-          "meetingId": 3,
-          "id": 2
-        }
-      ]
-    },
-    {
-      "Date": null,
-      "id": 4
-    },
-    {
-      "Date": "2022-05-17T19:00:00.000Z",
-      "id": 5
+      "Date": "2022-10-28T19:00:00.000Z",
+      "id": 2
     }
   ],
   "users": [
@@ -144,6 +121,16 @@
       "email": "a@a.ru",
       "password": "666f7ac00db9d033369e5db9232e83d58e46ffedcfca2c184a0d8dcadc2676b6",
       "id": 1
+    },
+    {
+      "email": "a@1.ru",
+      "password": "666f7ac00db9d033369e5db9232e83d58e46ffedcfca2c184a0d8dcadc2676b6",
+      "id": 2
+    },
+    {
+      "email": "admin@admin.ru",
+      "password": "666f7ac00db9d033369e5db9232e83d58e46ffedcfca2c184a0d8dcadc2676b6",
+      "id": 3
     }
   ]
 }

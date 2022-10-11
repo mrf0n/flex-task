@@ -8,5 +8,7 @@ export default DS.Model.extend({
   tags: DS.attr('array'),
   coverURL: DS.attr('string'),
 
-  reports: DS.hasMany('report')
+  reports: DS.hasMany('report'),
+
+  user: DS.belongsTo('user')
 });

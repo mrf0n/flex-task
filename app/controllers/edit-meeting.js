@@ -13,9 +13,8 @@ import { inject as service } from '@ember/service';
             let meetingModel = this.get('model');
             if(this.get('datameet')) {
                 meetingModel.set('Date', this.get('datameet'));    
-                meetingModel.set('Date', this.get('datameet'));
                 meetingModel.reports.forEach(report => {
-                    report.set('Date', this.get('datameet'));
+                    report.set('date', this.get('datameet'));
                     report.save();
                 });
             }
