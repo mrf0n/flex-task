@@ -34,6 +34,7 @@ export default Controller.extend({
             description: this.get('description'),
             coverURL: await coverURL,
             tags: this.get('tags'),
+            user: this.get('currentUser.user')
         };
 
         let newBook = this.get('store').createRecord('book', bookModel);

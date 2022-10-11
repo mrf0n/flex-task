@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default Controller.extend({
     store: service('store'),
+    currentUser: service(),
 
     init() {
         this._super(...arguments);

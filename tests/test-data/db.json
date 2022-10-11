@@ -54,66 +54,33 @@
       "userId": 1,
       "famility": "ad",
       "id": 5
+    },
+    {
+      "name": "Роман",
+      "surname": "Ефремов",
+      "famility": "Сергеевич",
+      "userId": 3,
+      "id": 6
     }
   ],
   "reports": [
     {
-      "date": "2022-10-15T19:00:00.000Z",
-      "rate": "55",
-      "clipURL": "http://localhost:4200/add-report-to-meet/1",
-      "presentationURL": "http://localhost:4200/add-report-to-meet/1",
-      "overview": "BAN",
-      "bookId": 5,
-      "speakerId": 4,
-      "meetingId": 1,
-      "userId": 3,
-      "id": 1
-    },
-    {
-      "date": "2022-10-15T19:00:00.000Z",
-      "rate": "4",
-      "clipURL": "2",
-      "presentationURL": "121",
-      "overview": "aa",
-      "bookId": 6,
-      "speakerId": 5,
-      "meetingId": 1,
-      "userId": 3,
-      "id": 2
-    },
-    {
-      "date": "2022-10-28T19:00:00.000Z",
+      "date": "2022-10-14T19:00:00.000Z",
       "rate": "1",
       "clipURL": "1",
       "presentationURL": "1",
-      "overview": "kruto",
-      "bookId": 6,
-      "speakerId": 5,
-      "meetingId": 2,
-      "userId": 3,
-      "id": 3
-    },
-    {
-      "date": "2022-10-28T19:00:00.000Z",
-      "rate": "2",
-      "clipURL": "1",
-      "presentationURL": "1",
-      "overview": "3",
+      "overview": "1",
       "bookId": 2,
-      "speakerId": 4,
-      "meetingId": 2,
+      "speakerId": 5,
+      "meetingId": 1,
       "userId": 3,
-      "id": 4
+      "id": 1
     }
   ],
   "meetings": [
     {
-      "Date": "2022-10-15T19:00:00.000Z",
+      "Date": "2022-10-14T19:00:00.000Z",
       "id": 1
-    },
-    {
-      "Date": "2022-10-28T19:00:00.000Z",
-      "id": 2
     }
   ],
   "users": [

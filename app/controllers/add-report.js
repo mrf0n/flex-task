@@ -22,6 +22,7 @@ export default Controller.extend({
                     user: this.get('currentUser.user')
                 };
                 let newReport = this.get('store').createRecord('report', reportModel);
+                newReport.serialize();
                 await newReport.save();
                 this.setProperties({
                     date: undefined,
@@ -29,8 +30,8 @@ export default Controller.extend({
                     presentationURL: undefined,
                     clipURL: undefined,
                     overview: undefined,
-                    book: undefined,
-                    speaker:undefined
+                    newBook: null,
+                    newSpeaker: null
                 });
                 
                 this.transitionToRoute('edit-meeting', meetingModel.get('id'));
