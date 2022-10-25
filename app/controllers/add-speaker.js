@@ -1,11 +1,32 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-export default Controller.extend({
+import { validator, buildValidations } from 'ember-cp-validations';
+import { computed } from '@ember/object';
+
+const Validations = buildValidations({
+    surname: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+    name: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+    famility: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+  });
+
+export default Controller.extend(Validations, {
      dataService: service('data'),
      currentUser: service(),
+     i18n: service(),
+     isFormValid: computed.alias('validations.isValid'),
 
      actions: {
          async makespeaker() {
+            if (this.get('isFormValid')) {
             let speakerModel = {
                 name: this.get('name'),
                 surname: this.get('surname'),
@@ -22,6 +43,7 @@ export default Controller.extend({
                 famility: undefined
             });
             this.transitionToRoute('speaker');
+        }
         }
     }
 });

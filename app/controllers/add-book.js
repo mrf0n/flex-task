@@ -1,9 +1,28 @@
 import Controller from '@ember/controller';
+import ENV from 'h-work-2/config/environment';
 import { inject as service } from '@ember/service';
 import { get, set } from '@ember/object';
-import ENV from 'h-work-2/config/environment';
-import {Promise} from 'rsvp';
-export default Controller.extend({
+import { validator, buildValidations } from 'ember-cp-validations';
+import { computed } from '@ember/object';
+
+const Validations = buildValidations({
+    name: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+    author: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+    size: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+  });
+
+export default Controller.extend(Validations, {
+    i18n: service(),
+    isFormValid: computed.alias('validations.isValid'),
     dataService: service('data'),
     actions: {
          changeUploadData(uploadData) {
@@ -15,6 +34,7 @@ export default Controller.extend({
          
 
     async makebook() {
+        if (this.get('isFormValid')) {
         const uploadData = get(this, 'uploadData');
         let coverURL = new Promise((resolve, reject) => {
             if(uploadData) {
@@ -48,7 +68,8 @@ export default Controller.extend({
         });
 
         this.transitionToRoute('book');
-    },   
+    }
+},   
     reset() {
         set(this, 'uploadData', null);
       }

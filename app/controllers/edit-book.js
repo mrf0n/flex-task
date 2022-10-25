@@ -1,9 +1,28 @@
 import Controller from '@ember/controller';
 import { get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { validator, buildValidations } from 'ember-cp-validations';
+import { computed } from '@ember/object';
 
-export default Controller.extend({
+const Validations = buildValidations({
+    name: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+    author: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+    size: [
+        validator('ds-error'),
+        validator('presence', true)
+    ],
+  });
+
+export default Controller.extend(Validations, {
     dataService: service('data'),
+    i18n: service(),
+    isFormValid: computed.alias('validations.isValid'),
 
      actions: {
         changeTags(newTags) {
@@ -13,6 +32,7 @@ export default Controller.extend({
             set(this, 'uploadData', uploadData);
         },
         async edit_book() {
+            if (this.get('isFormValid')) {
             let bookModel = this.get('model');
 
             const uploadData = get(this, 'uploadData');
@@ -38,6 +58,7 @@ export default Controller.extend({
                 description: undefined
             });
             this.transitionToRoute('book');
+        }
         },
         reset() {
             set(this, 'uploadData', null);

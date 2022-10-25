@@ -1,12 +1,32 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { validator, buildValidations } from 'ember-cp-validations';
+import { computed } from '@ember/object';
 
-export default Controller.extend({
+
+const Validations = buildValidations({
+    newpresURL: [
+        validator('ds-error'),
+        validator('presence', true),
+        validator('format', { type: 'url' })
+    ],
+    newclipURL: [
+        validator('ds-error'),
+        validator('presence', true),
+        validator('format', { type: 'url' })
+    ],
+  });
+
+
+export default Controller.extend(Validations, {
     store: service(),
     currentUser: service(),
+    i18n: service(),
+    isFormValid: computed.alias('validations.isValid'),
 
     actions: {
         async addReport() {
+            if (this.get('isFormValid')) {
             let meetingModel = this.get('model').meeting;
             let id = meetingModel.get('id');
             if(this.get('newBook') && this.get('newSpeaker'))
@@ -40,6 +60,7 @@ export default Controller.extend({
             else {
                 alert('Выберите книгу и спикера!');
             }
+        }
         },
         getBooks() {
             return this.get('store').findAll('book');

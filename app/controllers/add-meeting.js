@@ -1,10 +1,23 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
+import { get, set } from '@ember/object';
+import { validator, buildValidations } from 'ember-cp-validations';
+import { computed } from '@ember/object';
 
-export default Controller.extend({
+const Validations = buildValidations({
+    meetdate: [
+        validator('ds-error'),
+        validator('presence', true),
+        validator('format', { type: 'date' })
+    ]
+});
+
+export default Controller.extend(Validations, {
     store: service('store'),
     currentUser: service(),
+    i18n: service(),
+    isFormValid: computed.alias('validations.isValid'),
 
     init() {
         this._super(...arguments);
@@ -12,6 +25,7 @@ export default Controller.extend({
 
     actions: {
         async addMeeting() {
+            if (this.get('isFormValid')) {
             let meetingModel = this.get('model');
             if(this.get('datameet')) {
                 meetingModel.set('Date', this.get('datameet'));
@@ -28,6 +42,7 @@ export default Controller.extend({
                 this.transitionToRoute('meeting');
             }
             else alert('Поле даты не заполнено!')
+        }
         },
         async deleteMeeting(meeting) {
             let cureentmeet = meeting; 

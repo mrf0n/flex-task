@@ -1,36 +1,51 @@
 <div class="htop">
-    <h2 class="text-center">Добавление книги</h2>
+    <h2 class="text-center">{{t "menu.addingBook"}}</h2>
     <form class="edit-form">
         <div class="form-group row">
-            <label for="inputTitle" class="col-sm-2 col-form-label text-right">Название</label>
+            <label for="inputTitle" class="col-sm-2 col-form-label text-right">{{t "menu.name"}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control form-control-lg" id="inputTitle" oninput={{action (mut name) value="target.value"}}>
+                {{#if (v-get this 'name' 'isInvalid')}}
+                    <span class="error-message">
+                        {{v-get this 'name' 'message'}}
+                    </span>
+                {{/if}}
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputAuthor" class="col-sm-2 col-form-label text-right">Автор</label>
+            <label for="inputAuthor" class="col-sm-2 col-form-label text-right">{{t "menu.author"}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control form-control-lg" id="inputAuthor" oninput={{action (mut author) value="target.value"}}>
+                {{#if (v-get this 'author' 'isInvalid')}}
+                    <span class="error-message">
+                        {{v-get this 'author' 'message'}}
+                    </span>
+                {{/if}}
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputPagesCount" class="col-sm-2 col-form-label text-right">Объем</label>
+            <label for="inputPagesCount" class="col-sm-2 col-form-label text-right">{{t "menu.numberOfPages"}}</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control form-control-lg" id="inputPagesCount" oninput={{action (mut size) value="target.value"}}>
+                 {{#if (v-get this 'size' 'isInvalid')}}
+                    <span class="error-message">
+                        {{v-get this 'size' 'message'}}
+                    </span>
+                {{/if}}            
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputDescriptionURL" class="col-sm-2 col-form-label text-right">Описание</label>
+            <label for="inputDescriptionURL" class="col-sm-2 col-form-label text-right">{{t "menu.description"}}</label>
             <div class="col-sm-10">
                 <input type="url" class="form-control form-control-lg" id="inputDescriptionURL" oninput={{action (mut description) value="target.value"}}>
             </div>
         </div>
         <div class="form-group row">
-            <label for="customFile" class="col-sm-2 col-form-label text-right">Обложка</label>
+            <label for="customFile" class="col-sm-2 col-form-label text-right">{{t "menu.cover"}}</label>
             {{input-files class="input-group input-group-lg col-sm-10" uploadData=uploadData uploadDataChanged=(action "changeUploadData")}}
         </div>
         <div class="form-group row">
-            <label for="inputTags" class="col-sm-2 col-form-label text-right">Теги</label>
+           <label for="inputTags" class="col-sm-2 col-form-label text-right">{{t "menu.tags"}}</label>
             <div class="col-sm-10">
                 {{input-tags tags=model onChange=(action "changeTags")}}
             </div>
@@ -38,9 +53,9 @@
         <div class="form-group row">
             <div class="col-12 text-right">
                 {{!-- {{#link-to "books"}} --}}
-                <button type="button" class="btn btn-primary btn-lg" onclick={{action "makebook"}}>Добавить</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick={{action "makebook"}}>{{t "menu.add"}}</button>
                 {{!-- {{/link-to}} --}}
-                {{#link-to "book" class="btn btn-outline-secondary btn-lg"}}Отмена{{/link-to}}
+                {{#link-to "book" class="btn btn-outline-secondary btn-lg"}}{{t "menu.cancel"}}{{/link-to}}
             </div>
         </div>
     </form>
