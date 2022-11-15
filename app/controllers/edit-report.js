@@ -5,7 +5,8 @@ export default Controller.extend({
     store: service(),
     actions: {
         async editreport() {
-            let reportModel = this.get('model');
+            try
+            {let reportModel = this.get('model');
             this.get('rate') ? reportModel.set('rate', this.get('rate')) : undefined;
             this.get('newpresURL') ? reportModel.set('presentationURL', this.get('newpresURL')) : undefined;
             this.get('clipURL') ? reportModel.set('videoURL', this.get('newclipURL')) : undefined;
@@ -21,7 +22,16 @@ export default Controller.extend({
                 newoverview: undefined
             });
 
-            this.transitionToRoute('edit-meeting', reportModel.meeting.get('id'));
+            this.transitionToRoute('edit-meeting', reportModel.meeting.get('id'));}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
          },
          getBooks() {
              return this.get('store').findAll('book');

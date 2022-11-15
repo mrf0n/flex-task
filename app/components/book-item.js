@@ -15,7 +15,18 @@ export default Component.extend({
             // await book.destroyRecord();
             // this.get('store').unloadRecord(book);
             // this.transitionToRoute('books');
+            try{
             this.destroybook(book);
+            }
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+            }
         },
     }
 });

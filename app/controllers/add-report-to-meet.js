@@ -26,7 +26,8 @@ export default Controller.extend(Validations, {
 
     actions: {
         async addReport() {
-            if (this.get('isFormValid')) {
+            try
+            {if (this.get('isFormValid')) {
             let meetingModel = this.get('model').meeting;
             let id = meetingModel.get('id');
             if(this.get('newBook') && this.get('newSpeaker'))
@@ -60,7 +61,16 @@ export default Controller.extend(Validations, {
             else {
                 alert('Выберите книгу и спикера!');
             }
-        }
+        }}
+        catch(e){
+            let newLog = this.get('store').createRecord('log', 
+              {currentDate: new Date().toString(),
+              message: e.message,
+              currentURL: window.location.href,
+              ipAdress: '',})
+            newLog.save();
+            this.send('error', e);
+            }
         },
         getBooks() {
             return this.get('store').findAll('book');

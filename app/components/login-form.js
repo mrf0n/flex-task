@@ -29,6 +29,7 @@ export default Component.extend(Validations, {
 
   actions: {
     login(e) {
+      try{
       e.preventDefault();
       if (this.get('isFormValid')) {
       this.get('onSubmit')({
@@ -36,6 +37,16 @@ export default Component.extend(Validations, {
         password: this.password
       });
     }
+  }
+  catch(e){
+    let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+  }
   }
   },
 

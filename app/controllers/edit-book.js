@@ -26,13 +26,34 @@ export default Controller.extend(Validations, {
 
      actions: {
         changeTags(newTags) {
-            set(this, 'tags', [...newTags]);
+            try
+            {set(this, 'tags', [...newTags]);}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
           },
         changeUploadData(uploadData) {
-            set(this, 'uploadData', uploadData);
+            try
+            {set(this, 'uploadData', uploadData);}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
         async edit_book() {
-            if (this.get('isFormValid')) {
+            try
+            {if (this.get('isFormValid')) {
             let bookModel = this.get('model');
 
             const uploadData = get(this, 'uploadData');
@@ -58,7 +79,16 @@ export default Controller.extend(Validations, {
                 description: undefined
             });
             this.transitionToRoute('book');
-        }
+        }}
+        catch(e){
+            let newLog = this.get('store').createRecord('log', 
+              {currentDate: new Date().toString(),
+              message: e.message,
+              currentURL: window.location.href,
+              ipAdress: '',})
+            newLog.save();
+            this.send('error', e);
+            }
         },
         reset() {
             set(this, 'uploadData', null);

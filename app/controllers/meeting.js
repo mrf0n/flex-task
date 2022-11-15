@@ -35,7 +35,8 @@ export default Controller.extend({
 
     actions: {
         async deleteMeeting(meeting) {
-            let cureentmeet = meeting; 
+            try
+            {let cureentmeet = meeting; 
             let reportcache = [];
             let promisesarr = [];
             let meetarr = cureentmeet.get('reports').toArray();;
@@ -49,30 +50,89 @@ export default Controller.extend({
                 this.store.unloadRecord(report);
             })
             await meeting.destroyRecord();
-            this.store.unloadRecord(meeting);
+            this.store.unloadRecord(meeting);}
             // this.transitionToRoute('meeting');
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
         setSpeaker(speaker) {
-            this.set('speaker', speaker ? speaker.get('id') : '');
+            try
+            {this.set('speaker', speaker ? speaker.get('id') : '');}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
 
         setBook(book) {
-            this.set('book', book ? book.get('id') : '');
+            try
+           { this.set('book', book ? book.get('id') : '');}
+           catch(e){
+            let newLog = this.get('store').createRecord('log', 
+              {currentDate: new Date().toString(),
+              message: e.message,
+              currentURL: window.location.href,
+              ipAdress: '',})
+            newLog.save();
+            this.send('error', e);
+            }
         },
 
         setDate(date) {
-            this.set('date', date);
+            try
+            {this.set('date', date);}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
         
         updatePage() {
-            this.send("reloadModel");
+            try
+            {this.send("reloadModel");}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
 
         clear() {
-            this.set('book', '');
+            try
+            {this.set('book', '');
             this.set('speaker', '');
             this.set('date', '');
-            this.send("reloadModel");
+            this.send("reloadModel");}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         }
     }
 })

@@ -25,7 +25,8 @@ export default Controller.extend(Validations, {
 
     actions: {
         async addMeeting() {
-            if (this.get('isFormValid')) {
+            try
+            {if (this.get('isFormValid')) {
             let meetingModel = this.get('model');
             if(this.get('datameet')) {
                 meetingModel.set('Date', this.get('datameet'));
@@ -42,10 +43,20 @@ export default Controller.extend(Validations, {
                 this.transitionToRoute('meeting');
             }
             else alert('Поле даты не заполнено!')
-        }
+        }}
+        catch(e){
+            let newLog = this.get('store').createRecord('log', 
+              {currentDate: new Date().toString(),
+              message: e.message,
+              currentURL: window.location.href,
+              ipAdress: '',})
+            newLog.save();
+            this.send('error', e);
+            }
         },
         async deleteMeeting(meeting) {
-            let cureentmeet = meeting; 
+            try
+            {let cureentmeet = meeting; 
             let reportcache = [];
             let promisesarr = [];
             let meetarr = cureentmeet.get('reports').toArray();;
@@ -60,11 +71,30 @@ export default Controller.extend(Validations, {
             })
             await meeting.destroyRecord();
             this.store.unloadRecord(meeting);
-            this.transitionToRoute('meeting');
+            this.transitionToRoute('meeting');}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
         async deleteReport(report) {
-            await report.destroyRecord();
-            this.store.unloadRecord(report);
+            try
+           { await report.destroyRecord();
+            this.store.unloadRecord(report);}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         }
     }
 });

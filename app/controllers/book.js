@@ -12,11 +12,31 @@ import Controller from '@ember/controller';
      },
      actions: {
         refreshlist() {
-            this.send("refreshBooks");
+            try
+            {this.send("refreshBooks");}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
         async deleteBook(book) {
-            await book.destroyRecord();
-            this.store.unloadRecord(book);
+            try
+            {await book.destroyRecord();
+            this.store.unloadRecord(book);}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
     }
  });

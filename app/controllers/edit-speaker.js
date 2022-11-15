@@ -24,7 +24,8 @@ export default Controller.extend(Validations, {
     isFormValid: computed.alias('validations.isValid'),
         actions: {
             async edit_speaker() {
-                if (this.get('isFormValid')) {
+                try
+               { if (this.get('isFormValid')) {
                 let speakerModel = this.get('model');
                 this.get('name') ? speakerModel.set('name', this.get('name')) : undefined;
                 this.get('surname') ? speakerModel.set('surname', this.get('surname')) : undefined;
@@ -38,7 +39,16 @@ export default Controller.extend(Validations, {
                 });
  
                 this.transitionToRoute('speaker');
-            }
+            }}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
             }
         }
 });

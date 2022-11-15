@@ -26,15 +26,36 @@ export default Controller.extend(Validations, {
     dataService: service('data'),
     actions: {
          changeUploadData(uploadData) {
-             set(this, 'uploadData', uploadData);
+            try
+             {set(this, 'uploadData', uploadData);}
+             catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
          },
          changeTags(newTags) {
-             set(this, 'tags', [...newTags]);
+            try
+             {set(this, 'tags', [...newTags]);}
+             catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
          },
          
 
     async makebook() {
-        if (this.get('isFormValid')) {
+        try
+        {if (this.get('isFormValid')) {
         const uploadData = get(this, 'uploadData');
         let coverURL = new Promise((resolve, reject) => {
             if(uploadData) {
@@ -68,7 +89,16 @@ export default Controller.extend(Validations, {
         });
 
         this.transitionToRoute('book');
-    }
+    }}
+    catch(e){
+        let newLog = this.get('store').createRecord('log', 
+          {currentDate: new Date().toString(),
+          message: e.message,
+          currentURL: window.location.href,
+          ipAdress: '',})
+        newLog.save();
+        this.send('error', e);
+        }
 },   
     reset() {
         set(this, 'uploadData', null);

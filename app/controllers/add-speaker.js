@@ -26,7 +26,8 @@ export default Controller.extend(Validations, {
 
      actions: {
          async makespeaker() {
-            if (this.get('isFormValid')) {
+            try
+            {if (this.get('isFormValid')) {
             let speakerModel = {
                 name: this.get('name'),
                 surname: this.get('surname'),
@@ -43,7 +44,16 @@ export default Controller.extend(Validations, {
                 famility: undefined
             });
             this.transitionToRoute('speaker');
-        }
+        }}
+        catch(e){
+            let newLog = this.get('store').createRecord('log', 
+              {currentDate: new Date().toString(),
+              message: e.message,
+              currentURL: window.location.href,
+              ipAdress: '',})
+            newLog.save();
+            this.send('error', e);
+            }
         }
     }
 });

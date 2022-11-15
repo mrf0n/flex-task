@@ -98,6 +98,34 @@
       "email": "admin@admin.ru",
       "password": "715d1dbf1dfb464b7d5362f3f3990b1be07effa5b4aba62d9946b5d3f5a16ae0",
       "id": 3
+    },
+    {
+      "email": "r@r.ru",
+      "password": "715d1dbf1dfb464b7d5362f3f3990b1be07effa5b4aba62d9946b5d3f5a16ae0",
+      "id": 4
+    }
+  ],
+  "logs": [
+    {
+      "currentDate": "Tue Nov 15 2022 16:23:20 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/login",
+      "message": null,
+      "id": 1
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 16:24:56 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/login",
+      "message": null,
+      "id": 2
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:03:20 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/add-speaker",
+      "message": "Can't find variable: speakerModels",
+      "id": 3
     }
   ]
 }

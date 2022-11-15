@@ -23,7 +23,17 @@
             async deletespeaker(speaker) {
                 // await speaker.destroyRecord();
                 // this.get('store').unloadRecord(speaker);
-                this.destroyspeaker(speaker);
+                try
+                {this.destroyspeaker(speaker);}
+                catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
             }
         }
     });

@@ -10,7 +10,8 @@ import { inject as service } from '@ember/service';
 
     actions: {
         async editmeeting() {
-            let meetingModel = this.get('model');
+            try
+            {let meetingModel = this.get('model');
             if(this.get('datameet')) {
                 meetingModel.set('Date', this.get('datameet'));    
                 meetingModel.reports.forEach(report => {
@@ -24,11 +25,30 @@ import { inject as service } from '@ember/service';
             this.setProperties({
                 Date: undefined
             });
-            this.transitionToRoute('meeting');
+            this.transitionToRoute('meeting');}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         },
         async deleteReport(report) {
-            await report.destroyRecord();
-            this.get('store').unloadRecord(report);
+            try
+            {await report.destroyRecord();
+            this.get('store').unloadRecord(report);}
+            catch(e){
+                let newLog = this.get('store').createRecord('log', 
+                  {currentDate: new Date().toString(),
+                  message: e.message,
+                  currentURL: window.location.href,
+                  ipAdress: '',})
+                newLog.save();
+                this.send('error', e);
+                }
         }
     }
  });
