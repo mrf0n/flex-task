@@ -126,6 +126,48 @@
       "currentURL": "http://localhost:4200/add-speaker",
       "message": "Can't find variable: speakerModels",
       "id": 3
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:28:01 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/speakers?search=ad",
+      "message": "Can't find variable: refreshlist",
+      "id": 4
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:31:48 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/speakers?search=ad",
+      "message": "this.refreshlist is not a function. (In 'this.refreshlist()', 'this.refreshlist' is undefined)",
+      "id": 5
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:33:00 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/speakers",
+      "message": "Can't find variable: refreshlist",
+      "id": 6
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:33:31 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/speakers",
+      "message": "this.refreshlist is not a function. (In 'this.refreshlist()', 'this.refreshlist' is undefined)",
+      "id": 7
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:35:31 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/speakers",
+      "message": "Assertion Failed: An action named 'refreshlist' was not found in <h-work-2@controller:speaker::ember475>",
+      "id": 8
+    },
+    {
+      "currentDate": "Tue Nov 15 2022 17:49:56 GMT+0500 (+05)",
+      "ipAdress": "::1",
+      "currentURL": "http://localhost:4200/speakers",
+      "message": "Assertion Failed: An action named 'finder' was not found in <h-work-2@controller:speaker::ember474>",
+      "id": 9
     }
   ]
 }

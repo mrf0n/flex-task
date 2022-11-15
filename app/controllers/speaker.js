@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { debounce } from '@ember/runloop';
 
 export default Controller.extend({
     dataService: service('data'),
@@ -7,8 +8,8 @@ export default Controller.extend({
     queryParams: ["search"],
     search: '',
     actions: {
-        refreshlist() {
-            try
+        refreshlist(event) {
+            debounce(() => {try
             {this.send("refreshSpeakers");}
             catch(e){
                 let newLog = this.get('store').createRecord('log', 
@@ -18,7 +19,7 @@ export default Controller.extend({
                   ipAdress: '',})
                 newLog.save();
                 this.send('error', e);
-                }
+                };}, 1000)
         },
         async deleteSpeaker(speaker) {
             try
